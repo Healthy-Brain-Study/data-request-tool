@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-To get started with the Data Request Tool, download the latest release from [here](https://github.com/Healthy-Brain-Study/data-request-tool/releases/tag/v0.1.0).
+To get started with the Data Request Tool, download the latest release from <a href="https://github.com/Healthy-Brain-Study/data-request-tool/releases/tag/v0.1.0" target="_blank">here</a>.
 And follow the instructions below.
 
 ## Installation
