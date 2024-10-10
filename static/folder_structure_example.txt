@@ -1,0 +1,17 @@
+.
+└── pulled-data/
+    ├── participant_id_1/
+    │   └── column_name_1/
+    │       └── column_1_filename.csv
+    ├── participant_id_2/
+    │   ├── column_name_1/
+    │   │   └── column_1_filename.csv
+    │   └── column_name_2/
+    │       └── column_2_filename.csv
+    └── participant_id_3/
+        ├── column_name_1/
+        │   └── column_1_filename.csv
+        ├── column_name_2/
+        │   └── column_2_filename.csv
+        └── column_name_3/
+            └── column_3_filename.csv

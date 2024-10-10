@@ -1,0 +1,9 @@
+.
+└── pulled-data/
+    └── processed-data/
+        └── column_1_combined
+            └── column_1_filename.csv
+        └── column_2_combined
+            └── column_2_filename.csv
+        └── column_3_combined
+            └── column_3_filename.csv
