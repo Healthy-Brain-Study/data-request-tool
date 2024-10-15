@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+from helpers.functions import get_selected_columns
+
 from .pep_client_base import PepClientBase
 
 
@@ -84,8 +86,12 @@ class PepClientDocker(PepClientBase):
         Returns:
             int: The exit code from the PEP CLI process.
         """
-        self.get_download_base_command(target_folder)
-        full_command = f'{self.download_base_command} "cd /output && /app/pepcli --client-working-directory /config  --oauth-token /token {command}"'
+        selected_columns = get_selected_columns()
+        command = ''
+        if selected_columns:
+            command += ' ' + ' '.join(f'-c {column}' for column in selected_columns)
+
+        full_command = f'{self.base_command} "cd /output && /app/pepcli --client-working-directory /config  --oauth-token /token {command}"'
 
         process = subprocess.Popen(full_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, encoding="utf-8", bufsize=1, universal_newlines=True)
 

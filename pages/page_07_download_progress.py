@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import threading
 from tkinter import messagebox
-from helpers.functions import get_pep_engine, get_target_folder, get_token_filepath, get_resume_download
+from helpers.functions import get_pep_engine, get_selected_columns, get_target_folder, get_token_filepath, get_resume_download
 from helpers.header import HeaderComponent
 from helpers.navigation_buttons import get_navigation_buttons
 from pepclient_package.pep_client import PepClient
@@ -82,15 +82,23 @@ class DownloadProgressPage(tk.Frame):
         Execute the PEP pull command and update the UI based on the output.
         """
         resume_command = "--resume --update -P * -c *"
+        selected_columns = get_selected_columns()
+
         if self.os_name == "darwin":
-            command = "pull --all-accessible --report-progress"
+            if selected_columns:
+                command = "pull -P * --report-progress"
+            else:
+                command = "pull --all-accessible --report-progress"
             if get_resume_download():
                 command += f" {resume_command}"
 
             for output_line in self.pepcli.pep_pull(command, self.target_folder):
                 self.add_output_line_to_progress_text(output_line)
         else:
-            command = f"pull --output-directory \"{self.target_folder}\" --all-accessible --report-progress"
+            if selected_columns:
+                command = f"pull --output-directory \"{self.target_folder}\" -P * --report-progress"
+            else:
+                command = f"pull --output-directory \"{self.target_folder}\" --all-accessible --report-progress"
             if get_resume_download():
                 command += f" {resume_command}"
 

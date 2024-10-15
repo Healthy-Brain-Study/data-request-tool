@@ -3,7 +3,7 @@ import tkinter as tk
 
 from helpers.navigation_buttons import get_navigation_buttons
 from pepclient_package.pep_client import PepClient
-from helpers.functions import get_pep_engine, get_token_filepath
+from helpers.functions import get_pep_engine, get_token_filepath, set_available_columns
 from helpers.header import HeaderComponent
 from helpers.loading_dialog import LoadingDialog
 
@@ -81,6 +81,11 @@ class PEPOverviewPage(tk.Frame):
         enrollment_access = pepcli.query_enrollment().get("message", "")
         column_access = pepcli.query_column_access().get("message", "")
         participant_group_access = pepcli._command(command="query participant-group-access").get("message", "")
+
+        columns = column_access.split("Columns (")[-1].split("\n")
+        columns = [column.replace('r ', '').replace('rw ', '').strip() for column in columns][1:]
+
+        set_available_columns(columns)
 
         if not enrollment_access and tries > 0:
             self.load_pep_overview(tries=tries - 1)

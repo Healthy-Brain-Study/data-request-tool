@@ -2,6 +2,8 @@ import os
 import re
 import subprocess
 
+from helpers.functions import get_selected_columns
+
 from .pep_client_base import PepClientBase
 
 
@@ -62,6 +64,11 @@ class PepClientSingularity(PepClientBase):
             int: The return code of the subprocess executing the PEP command.
         """
         command = f"{self.base_command} {command}"
+
+        selected_columns = get_selected_columns()
+        if selected_columns:
+            command += ' ' + ' '.join(f'-c {column}' for column in selected_columns)
+
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="ISO-8859-1", shell=True, bufsize=1, universal_newlines=True)
 
         while True:

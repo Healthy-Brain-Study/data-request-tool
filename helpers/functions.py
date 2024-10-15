@@ -4,6 +4,8 @@ import sys
 
 combined_columns_folder = os.path.join('combined_column_data', 'columns')
 parent_combine_columns_folder = 'combined_column_data'
+available_columns = []
+selected_columns = []
 
 # Initially, perhaps None or a default path
 _token_filepath = None
@@ -22,6 +24,24 @@ def get_filepath_for_executable(filepath):
         return os.path.join(application_path, filepath)
     else:
         return filepath
+
+
+def set_available_columns(columns):
+    global available_columns
+    available_columns = columns
+
+
+def set_selected_columns(columns):
+    global selected_columns
+    selected_columns = columns
+
+
+def get_available_columns():
+    return available_columns
+
+
+def get_selected_columns():
+    return selected_columns
 
 
 def make_path_os_safe(filepath):

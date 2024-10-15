@@ -1,7 +1,8 @@
 import os
 import subprocess
 import tempfile
-import platform
+
+from helpers.functions import get_selected_columns
 
 from .pep_client_base import PepClientBase
 
@@ -87,6 +88,12 @@ class PepClientWindows(PepClientBase):
             int: The return code of the process.
         """
         command = f"{self.base_command} {command}"
+
+        selected_columns = get_selected_columns()
+        if selected_columns:
+            command += ' ' + ' '.join(f'-c {column}' for column in selected_columns)
+
+        print(command)
 
         with tempfile.TemporaryDirectory() as tempdir:
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1, universal_newlines=True, cwd=tempdir)
